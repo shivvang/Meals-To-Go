@@ -1,12 +1,33 @@
 import React from "react";
-import { Text, StyleSheet } from "react-native";
+import { Text, View } from "react-native";
 import { Card } from "react-native-paper";
-import { Styled } from "styled-components/native";
+import styled from "styled-components/native";
+import { SvgXml } from "react-native-svg";
+import star from "../../../../assets/star";
 
-const Title = Styled.Text`
-  padding: 16px;
+const RestaurantCard = styled(Card)`
+  background-color: ${(props) => props.theme.colors.bg.primary};
 `;
 
+const RestaurantCardCover = styled(Card.Cover)`
+  padding: ${(props) => props.theme.space[3]};
+  background-color: ${(props) => props.theme.colors.ui.primary};
+`;
+
+const Title = styled(Text)`
+  font-family: ${(props) => props.theme.fonts.heading};
+  color: ${(props) => props.theme.colors.ui.primary};
+  font-size: ${(props) => props.theme.fontSizes.caption};
+`;
+
+const Address = styled(View)`
+  font-family: ${(props) => props.theme.fonts.body};
+  font-size: ${(props) => props.theme.fontSizes.body};
+`;
+
+const Info = styled(View)`
+  padding: ${(props) => props.theme.space[3]};
+`;
 export const RestaurantInfoCard = ({ restaurnt = {} }) => {
   const {
     name = "some restaurant",
@@ -22,27 +43,14 @@ export const RestaurantInfoCard = ({ restaurnt = {} }) => {
 
   return (
     <>
-      <Card elevation={5} style={styles.card}>
-        <Card.Cover
-          key={name}
-          style={styles.card}
-          source={{ uri: photos[0] }}
-        />
-        <Title>{name}</Title>
-      </Card>
+      <RestaurantCard elevation={5}>
+        <RestaurantCardCover key={name} source={{ uri: photos[0] }} />
+        <Info>
+          <Title>{name}</Title>
+          <SvgXml xml={star} width={20} height={20} />
+          <Address>{address}</Address>
+        </Info>
+      </RestaurantCard>
     </>
   );
 };
-
-const styles = StyleSheet.create({
-  card: {
-    backgroundColor: "white",
-  },
-  cover: {
-    padding: 20,
-    backgroundColor: "white",
-  },
-  title: {
-    padding: 16,
-  },
-});
