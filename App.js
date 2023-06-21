@@ -20,6 +20,9 @@ import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 //navigation stuff
 const Tab = createBottomTabNavigator();
 
+//context provider import
+import { RestaurantsContextprovider } from "./src/Services/Restaurants/restaurants.context";
+
 const Tab_Icon = {
   Restaurants: "md-restaurant",
   Maps: "md-map",
@@ -64,13 +67,15 @@ export default function App() {
   return (
     <>
       <ThemeProvider theme={theme}>
-        <NavigationContainer>
-          <Tab.Navigator screenOptions={CreatescreenOptions}>
-            <Tab.Screen name="Restaurants" component={RestaurantsScreen} />
-            <Tab.Screen name="Maps" component={Map} />
-            <Tab.Screen name="Settings" component={Settings} />
-          </Tab.Navigator>
-        </NavigationContainer>
+        <RestaurantsContextprovider>
+          <NavigationContainer>
+            <Tab.Navigator screenOptions={CreatescreenOptions}>
+              <Tab.Screen name="Restaurants" component={RestaurantsScreen} />
+              <Tab.Screen name="Maps" component={Map} />
+              <Tab.Screen name="Settings" component={Settings} />
+            </Tab.Navigator>
+          </NavigationContainer>
+        </RestaurantsContextprovider>
       </ThemeProvider>
       <StatusBar style="auto" />
     </>
